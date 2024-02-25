@@ -14,7 +14,7 @@ from langchain.prompts.chat import (
 from langchain_core.messages import SystemMessage
 
 st.set_page_config(page_title="JaredsChatbotTutorial", page_icon="🦒")
-st.title('Jared ❤️'s ML)
+st.title('Jared ❤️s ML')
 
 
 class StreamHandler(BaseCallbackHandler):
