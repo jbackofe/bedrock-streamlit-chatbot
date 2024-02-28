@@ -3,7 +3,6 @@ import streamlit as st
 from langchain.callbacks.base import BaseCallbackHandler
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_community.llms import Bedrock
-from langchain_community.chat_message_histories import StreamlitChatMessageHistory
 from langchain_experimental.chat_models import Llama2Chat
 
 from langchain.prompts.chat import (
@@ -12,9 +11,13 @@ from langchain.prompts.chat import (
     MessagesPlaceholder,
 )
 from langchain_core.messages import SystemMessage
+from langchain_community.chat_message_histories import DynamoDBChatMessageHistory
+
 
 st.set_page_config(page_title="JaredsChatbotTutorial", page_icon="🦒")
 st.title('Jared ❤️s ML')
+
+session_id = '1'
 
 
 class StreamHandler(BaseCallbackHandler):
@@ -56,8 +59,10 @@ def create_chain(model="meta.llama2-13b-chat-v1",
     )
 
 
-# Initialize StreamlitChatMessageHistory
-msgs = StreamlitChatMessageHistory(key="langchain_messages")
+# Initialize DynamoDBChatMessageHistory
+msgs = DynamoDBChatMessageHistory(
+            table_name="ChatbotSessionTable", session_id=session_id
+        )
 
 with st.sidebar:
     model = st.selectbox(
@@ -79,8 +84,9 @@ for msg in msgs.messages:
 if prompt := st.chat_input():
     st.chat_message("human").write(prompt)
 
-    with st.chat_message("assistant"):
+    with st.chat_message("ai"):
         stream_handler = StreamHandler(st.empty())
         chain = create_chain(model, temperature, max_gen_len, system_prompt, callbacks=[stream_handler])
-        config = {"configurable": {"session_id": "any"}}
+        config = {"configurable": {"session_id": session_id}}
         response = chain.invoke({"input": prompt}, config)
+        
