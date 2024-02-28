@@ -68,7 +68,7 @@ with st.sidebar:
     temperature = st.slider('Temperature', 0.0, 1.0, 0.01)  # Default temperature is 0.01
     max_gen_len = st.slider('Max Generation Length', 1, 2048, 1000)  # Default max_gen_len is 1000
     system_prompt = st.text_input('System Prompt', 'You are a smart assistant.')  # Default system prompt
-    if st.button('Clear Brain'):
+    if st.button('Clear'):
         msgs.clear()  # Clear messages when button is pressed
 
 
