@@ -1,4 +1,5 @@
 import streamlit as st
+import boto3
 
 from langchain.callbacks.base import BaseCallbackHandler
 from langchain_core.runnables.history import RunnableWithMessageHistory
@@ -13,6 +14,8 @@ from langchain.prompts.chat import (
 from langchain_core.messages import SystemMessage
 from langchain_community.chat_message_histories import DynamoDBChatMessageHistory
 
+# Set default AWS region
+boto3.setup_default_session(region_name='us-east-1')
 
 st.set_page_config(page_title="JaredsChatbotTutorial", page_icon="🦒")
 st.title('Jared ❤️s ML')
