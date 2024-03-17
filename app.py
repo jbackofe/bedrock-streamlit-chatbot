@@ -63,9 +63,11 @@ def create_chain(model="meta.llama2-13b-chat-v1",
 
 
 # Initialize DynamoDBChatMessageHistory
+# boto3_session = Session(region_name='us-east-1')
 msgs = DynamoDBChatMessageHistory(
-            table_name="ChatbotSessionTable", session_id=session_id
-        )
+    table_name="ChatbotSessionTable", 
+    session_id=session_id
+)
 
 with st.sidebar:
     model = st.selectbox(
