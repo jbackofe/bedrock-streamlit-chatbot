@@ -61,6 +61,7 @@ def create_chain(model="meta.llama2-13b-chat-v1",
         history_messages_key="history",
     )
 
+
 # Initialize DynamoDBChatMessageHistory
 # boto3_session = Session(region_name='us-east-1')
 msgs = DynamoDBChatMessageHistory(
