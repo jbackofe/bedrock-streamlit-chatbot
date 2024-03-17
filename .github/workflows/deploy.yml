@@ -35,3 +35,33 @@ jobs:
 
     - name: Output image URI
       run: 'echo "Image URI: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}"'
+
+    - name: Prepare Beanstalk deployment package
+      run: |
+        # Create a Dockerrun.aws.json file with the new image URI
+        echo '{
+          "AWSEBDockerrunVersion": "1",
+          "Image": {
+            "Name": "${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}",
+            "Update": "true"
+          },
+          "Ports": [
+            {
+              "ContainerPort": "80"
+            }
+          ]
+        }' > Dockerrun.aws.json
+        
+        # Zip the Dockerrun.aws.json file (include any other necessary files)
+        zip deployment-package.zip Dockerrun.aws.json
+
+    - name: Deploy to Elastic Beanstalk
+      uses: einaregilsson/beanstalk-deploy@v18
+      with:
+        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        application_name: chatbot-tutorial-beanstalk
+        environment_name: Chatbot-tutorial-beanstalk-env
+        version_label: ${{ github.sha }}
+        region: ${{ secrets.AWS_REGION }}
+        deployment_package: deployment-package.zip
