@@ -68,7 +68,6 @@ msgs = DynamoDBChatMessageHistory(
     session_id=session_id
 )
 
-
 with st.sidebar:
     model = st.selectbox(
         'Model',
