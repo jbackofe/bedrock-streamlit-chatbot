@@ -51,6 +51,10 @@ jobs:
             }
           ]
         }' > Dockerrun.aws.json
+
+        # Log the contents of Dockerrun.aws.json to verify its correctness
+        echo "Dockerrun.aws.json contents:"
+        cat Dockerrun.aws.json
         
         # Zip the Dockerrun.aws.json file (include any other necessary files)
         zip deployment-package.zip Dockerrun.aws.json
