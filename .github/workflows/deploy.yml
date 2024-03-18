@@ -40,7 +40,7 @@ jobs:
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
-        IMAGE_TAG: ${{ secrets.IMAGE_TAG }}  # Or set this directly if not using secrets
+        IMAGE_TAG: latest
       run: |
         # Create a Dockerrun.aws.json file with the new image URI
         echo '{
