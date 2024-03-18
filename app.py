@@ -16,6 +16,7 @@ from langchain_community.chat_message_histories import DynamoDBChatMessageHistor
 
 # Set default AWS region
 boto3.setup_default_session(region_name='us-east-1')
+BEDROCK_CLIENT = boto3.client("bedrock", 'us-east-1')
 
 st.set_page_config(page_title="JaredsChatbotTutorial", page_icon="🦒")
 st.title('Jared ❤️s ML')
@@ -43,6 +44,7 @@ def create_chain(model="meta.llama2-13b-chat-v1",
         model_kwargs={"temperature": temperature,
                       "max_gen_len": max_gen_len},
         streaming=True,
+        client=BEDROCK_CLIENT
     )
 
     template_messages = [
