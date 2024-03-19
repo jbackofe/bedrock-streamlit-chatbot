@@ -19,7 +19,7 @@ from langchain_community.chat_message_histories import DynamoDBChatMessageHistor
 from streamlit_cognito_auth import CognitoAuthenticator
 
 st.set_page_config(page_title="JaredsChatbotTutorial", page_icon="🦒")
-st.markdown("<h1 style='text-align: center; color: black;'>Jared ❤️s ML</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: black;'>WagChat Workshop 🐾</h1>", unsafe_allow_html=True)
 
 
 # Set default AWS region
