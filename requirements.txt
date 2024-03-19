@@ -121,7 +121,7 @@ SQLAlchemy==2.0.28
 stack-data==0.6.3
 starlette==0.32.0.post1
 streamlit==1.32.2
--e git+https://github.com/jbackofe/streamlit-cognito-auth.git@d6eb35ddbbb0a181043966d14cc04708d336e534#egg=streamlit_cognito_auth_v2
+streamlit-cognito-auth-v2==1.0.0
 syncer==2.0.3
 tenacity==8.2.3
 toml==0.10.2
